@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./logo.jpeg">
+<title>Verdant-Vita</title>
+<style>
+body {
+  background: #fff;
+  color: #333;
+  font-family: 'Ubuntu', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden; 
+}
+
+h1,
+.image-container,
+.button-container {
+  animation: slide-up 1s forwards; 
+  opacity: 0; 
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%); 
+    opacity: 0; 
+  }
+  100% {
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 400;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-align: center;
+  margin-top: 50px;
+  max-width: 80%;
+}
+
+.image-container {
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 7px;
+  margin: 10px;
+  transition: 0.5s ease-in-out;
+  background-color: #76885B;
+  color: white;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #627254;
+}
+
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.reverse-animation {
+  animation: reverse-slide-up 1s forwards;
+}
+
+@keyframes reverse-slide-up {
+  0% {
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+  100% {
+    transform: translateY(100%); 
+    opacity: 0; 
+  }
+}
+</style>
+</head>
+<body>
+  <h1>"Cultivate Beauty, One Drop at a Time"</h1>
+  <div class="image-container">
+    <img height="200" src="./logo1.png">
+  </div>
+  <div class="button-container">
+    <a href="home.html" id="transition-button" class="button">Add Bloom & Schedule</a>
+  </div>
+
+  <script>
+    document.getElementById('transition-button').addEventListener('click', function(event) {
+      event.preventDefault(); 
+      document.querySelector('h1').classList.add('reverse-animation');
+      document.querySelector('.image-container').classList.add('reverse-animation');
+      document.querySelector('.button-container').classList.add('reverse-animation');
+
+      setTimeout(function() {
+        window.location.href = event.target.href;
+      }, 1000);
+    });
+  </script>
+</body>
+</html>

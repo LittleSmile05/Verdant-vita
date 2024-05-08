@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./logo.jpeg">
+<title>Verdant-Vita</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+body {
+    background: #eee;
+    color: #6c7b5d;
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    animation: slide-up 1.5s forwards; 
+    opacity: 0; 
+}
+
+header {
+    background: #6c7b5d;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center; 
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#image-preview {
+    width: 200px; 
+    height: 200px; 
+    margin: 0 auto; 
+    display: block;
+    margin-bottom: 15px;
+}
+
+button.add {
+    background-color: #6c7b5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+button.add:hover {
+    background-color: #4e5a43;
+}
+
+button.delete {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete:hover {
+    background-color: #990000;
+}
+
+.image-entry {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center; 
+    animation: slide-up 1s forwards;
+    opacity: 0; 
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(100%); 
+        opacity: 0; 
+    }
+    100% {
+        transform: translateY(0); 
+        opacity: 1;
+    }
+}
+
+.image-entry img {
+    width: 200px; 
+    height: 200px; 
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.image-entry p {
+    margin-top: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+input {
+    border: none;
+    padding: 5px;
+    width: 310px;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+    border-bottom: 2px solid #6c7b5d; 
+}
+
+.submit {
+    background-color: #6c7b5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.content {
+    margin-top: 20px;
+}
+
+.content select {
+    margin-right: 10px;
+}
+
+.disable {
+    display: none;
+}
+
+/* Styling for alarm options */
+.alarm-option {
+    background-color: #6c7b5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.alarm-option:hover {
+    background-color: #4e5a43;
+}
+
+/* Styling for alarm button */
+.alarm-button {
+    margin-top: 20px;
+    background-color: #6c7b5d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.alarm-button:hover {
+    background-color: #4e5a43;
+}
+
+.content {
+    border: 1.5px solid #8aa174 ;
+    width: 300px;
+    margin: 20px auto; 
+    max-width: 600px; 
+    text-align: center;
+    padding: 10px; 
+    border-radius: 10px;
+}
+
+.content h2 {
+    margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Bloom Data Entry</h1>
+</header>
+<form id="add-form">
+<div>
+<label style="color: #eee;" for="image-input">Image:</label>
+<input type="file" accept="image/*" id="image-input" style="display: none;" onchange="previewImage(event)">
+<button class="add" onclick="openCamera()">Camera</button>
+<button class="add" onclick="openFileInput()">Add Image</button>
+</div>
+<div>
+<img id="image-preview" src="./logo1.png" alt="Image Preview">
+</div>
+<div>
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required>
+</div>
+<div>
+<label for="time">Time:</label>
+<input type="text" id="time" name="time" required>
+</div>
+<div>
+<button class="submit" type="button" onclick="saveData()">Submit</button>
+</div>
+</form>
+
+<div class="content">
+<h2>Set Alarm</h2>
+<select class="alarm-option">
+    <option value="Hour">Hour</option>
+</select>
+<select class="alarm-option">
+    <option value="Minute">Minute</option>
+</select>
+<select class="alarm-option">
+    <option value="AM/PM">AM/PM</option>
+</select>
+<button class="alarm-button" onclick="setAlarm()">Set Alarm</button>
+</div>
+
+<div id="image-container">
+</div>
+<audio id="alarm-sound" src="./alarm.mp3"></audio>
+
+<script>
+function openCamera() {
+    alert("Opening camera...");
+}
+
+function openFileInput() {
+    document.getElementById('image-input').click();
+}
+
+function previewImage(event) {
+    var input = event.target;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var preview = document.getElementById('image-preview');
+            preview.src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function saveData() {
+    var name = document.getElementById('name').value;
+    var time = document.getElementById('time').value;
+    var imageData = {
+        src: document.getElementById('image-preview').src,
+        name: name,
+        time: time
+    };
+
+    var fileInput = document.getElementById('image-input');
+
+    if (fileInput.files.length > 0) {
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            imageData.src = event.target.result;
+
+            var storedImages = JSON.parse(localStorage.getItem("images")) || [];
+            storedImages.push(imageData);
+            localStorage.setItem("images", JSON.stringify(storedImages));
+
+            window.location.href = "home.html";
+        };
+        reader.readAsDataURL(file);
+    } else {
+        alert("Please select an image.");
+    }
+
+    setNotification(time);
+}
+
+function setNotification(inputTime) {
+    var timeParts = inputTime.split(':');
+    var hours = parseInt(timeParts[0]);
+    var minutes = parseInt(timeParts[1]);
+
+    var interval = setInterval(function() {
+        var now = new Date();
+        var currentHours = now.getHours();
+        var currentMinutes = now.getMinutes();
+
+        if (currentHours === hours && currentMinutes === minutes) {
+            clearInterval(interval);
+            var notification = new Notification('Time Alert', {
+                body: 'It is ' + inputTime + '.',
+                icon: 'icon.png' 
+            });
+        }
+    }, 60000); 
+}
+
+function displayImages() {
+    var storedImages = JSON.parse(localStorage.getItem("images")) || [];
+    var container = document.getElementById("image-container");
+    container.innerHTML = ""; 
+
+    storedImages.forEach(function(image, index) {
+        var div = document.createElement("div");
+        div.classList.add("image-entry");
+
+        var img = document.createElement("img");
+        img.src = image.src;
+        img.alt = image.name;
+
+        var name = document.createElement("p");
+        name.textContent = image.name;
+
+        var time = document.createElement("p");
+        time.textContent = "Time: " + image.time;
+
+        var deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("delete");
+        deleteBtn.addEventListener("click", function() {
+            storedImages.splice(index, 1);
+            localStorage.setItem("images", JSON.stringify(storedImages));
+            displayImages();
+        });
+
+        div.appendChild(img);
+        div.appendChild(name);
+        div.appendChild(time);
+        div.appendChild(deleteBtn);
+        container.appendChild(div);
+    });
+}
+
+window.onload = function() {
+    displayImages();
+    if (Notification.permission !== 'granted') {
+        Notification.requestPermission();
+    }
+};
+
+const currentTime = document.querySelector("h1"),
+    content = document.querySelector(".content"),
+    selectMenu = document.querySelectorAll("select"),
+    setAlarmBtn = document.querySelector("button");
+
+let alarmTime, isAlarmSet,
+    ringtone = new Audio("./alarm.mp3");
+
+for (let i = 12; i > 0; i--) {
+    i = i < 10 ? `0${i}` : i;
+    let option = `<option value="${i}">${i}</option>`;
+    selectMenu[0].firstElementChild.insertAdjacentHTML("afterend", option);
+}
+
+for (let i = 59; i >= 0; i--) {
+    i = i < 10 ? `0${i}` : i;
+    let option = `<option value="${i}">${i}</option>`;
+    selectMenu[1].firstElementChild.insertAdjacentHTML("afterend", option);
+}
+
+for (let i = 2; i > 0; i--) {
+    let ampm = i == 1 ? "AM" : "PM";
+    let option = `<option value="${ampm}">${ampm}</option>`;
+    selectMenu[2].firstElementChild.insertAdjacentHTML("afterend", option);
+}
+
+setInterval(() => {
+    let date = new Date(),
+        h = date.getHours(),
+        m = date.getMinutes(),
+        s = date.getSeconds(),
+        ampm = "AM";
+    if (h >= 12) {
+        h = h - 12;
+        ampm = "PM";
+    }
+    h = h == 0 ? h = 12 : h;
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+    currentTime.innerText = `${h}:${m}:${s} ${ampm}`;
+
+    if (alarmTime === `${h}:${m} ${ampm}`) {
+        ringtone.play();
+        ringtone.loop = true;
+    }
+});
+
+function setAlarm() {
+    if (isAlarmSet) {
+        alarmTime = "";
+        ringtone.pause();
+        content.classList.remove("disable");
+        setAlarmBtn.innerText = "Set Alarm";
+        return isAlarmSet = false;
+    }
+
+    let time = `${selectMenu[0].value}:${selectMenu[1].value} ${selectMenu[2].value}`;
+    if (time.includes("Hour") || time.includes("Minute") || time.includes("AM/PM")) {
+        return alert("Please, select a valid time to set Alarm!");
+    }
+    alarmTime = time;
+    isAlarmSet = true;
+    content.classList.add("disable");
+    setAlarmBtn.innerText = "Clear Alarm";
+}
+
+setAlarmBtn.addEventListener("click", setAlarm);
+</script>
+</body>
+</html>

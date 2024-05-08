@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./logo.jpeg">
+<title>Verdant-Vita</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: 'Ubuntu', sans-serif;
+  position: relative;
+}
+
+header {
+  color: #4e5a43;
+  text-align: center;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: #eee;
+  padding: 20px;
+  animation: slide-up 1s forwards; 
+  opacity: 0; 
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(-100%); 
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0); 
+    opacity: 1; 
+  }
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-weight: 400;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  color: #6c7b5d;
+  margin-bottom: 20px;
+}
+
+.add {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 50%;
+  margin: 0 10px;
+  margin-top: 10px;
+  transition: 0.5s ease-in-out;
+  background-color: rgba(118, 136, 91, 0.8);
+  color: white;
+  font-size: 24px;
+}
+
+.add:hover {
+  background-color: #627254;
+}
+
+#image-preview {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image-container {
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  margin: 0 10px 20px;
+  border-radius: 5px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slide-up 1s forwards; 
+  opacity: 0; 
+}
+
+.image-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.image-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(115, 134, 88, 0.8); 
+  height: 35px;
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  opacity: 0;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  transition: opacity 0.3s ease;
+}
+
+.image-container:hover .image-text {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  #image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .image-container {
+    width: calc(50% - 20px);
+    margin: 0 10px 20px;
+  }
+
+  .image-container img {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.con {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+</style>
+</head>
+
+<body>
+  <header>
+    <h1>🪴⏰Welcome to Verdant Vita - Your Personal Plant Hydration Expert!</h1>
+    <h3>🌿Scroll down to turn over a new leaf in plant care.🌿</h3>
+
+  </header>
+  <div class="con">
+    <button class="add" onclick="goToAddPage()">+</button>
+  </div>
+
+  <div id="image-preview"></div>
+
+  <script>
+    function goToAddPage() {
+      document.querySelector('header').classList.add('reverse-animation');
+      var imageContainers = document.querySelectorAll('.image-container');
+      imageContainers.forEach(function(container) {
+        container.classList.add('reverse-animation');
+      });
+
+      setTimeout(function() {
+        window.location.href = "add.html";
+      }, 1000); 
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      var storedImages = JSON.parse(localStorage.getItem("images")) || [];
+      var imagePreview = document.getElementById('image-preview');
+      storedImages.forEach(function(imageData) {
+        var imageContainer = document.createElement('div');
+        imageContainer.classList.add('image-container');
+
+        var image = document.createElement('img');
+        image.src = imageData.src;
+        imageContainer.appendChild(image);
+
+        var imageText = document.createElement('div');
+        imageText.classList.add('image-text');
+        imageText.innerText = imageData.name + ' - ' + imageData.time;
+        imageContainer.appendChild(imageText);
+
+        imagePreview.appendChild(imageContainer);
+      });
+    });
+  </script>
+</body>
+</html>
